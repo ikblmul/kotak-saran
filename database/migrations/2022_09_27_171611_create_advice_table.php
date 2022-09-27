@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('advice', function (Blueprint $table) {
+        Schema::create('advices', function (Blueprint $table) {
             $table->id();
-            $table->string('content');
+            $table->text('content');
             $table->json('attachment')->default('[]');
             $table->foreignId('author_id');
             $table->foreignId('topic_id');

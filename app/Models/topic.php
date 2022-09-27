@@ -32,4 +32,9 @@ class Topic extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    public function advices()
+    {
+        return $this->hasMany(Advice::class, 'topic_id');
+    }
 }

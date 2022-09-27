@@ -23,8 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'phone_num',
-        'password',
-        'acc_type'
+        'password'
     ];
 
     /**
@@ -46,4 +45,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class, 'author_id');
+    }
+
+    public function advices()
+    {
+        return $this->hasMany(Advice::class, 'advice_id');
+    }
+
+    public function groupUser()
+    {
+        return $this->belongsToMany(User::class, 'group_user', 'group_id', 'user_id');
+    }
+
+    static function makeAnonymousUsers()
+    {
+        return collect((object)[
+            'profiles' => (object)[
+                'fullname' => 'Anonymous',
+                'verify_user' => false,
+            ],
+            'email' => '',
+            'phone_num' => '',
+        ]);
+    }
 }
