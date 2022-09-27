@@ -13,13 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('topic_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('phone_num');
-            $table->string('password');
-            $table->rememberToken();
+
+            $table->boolean('slow_mode');
+            $table->boolean('only_auth');
+
+            $table->boolean('allow_same_user');
+            $table->integer('max_slow_mode', -1);
+
+            $table->string('token');
+            $table->foreignId('topic_id');
+
+            $table->foreign('topic_id')->on("topics")->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
@@ -31,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('topic_settings');
     }
 };

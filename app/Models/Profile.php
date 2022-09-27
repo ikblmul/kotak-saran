@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Topic extends Model
+class Profile extends Model
 {
     use HasFactory;
 
-    public $table = "topics";
+    public $table = "profile";
 
     /**
      * The attributes that are mass assignable.
@@ -17,19 +17,12 @@ class Topic extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
-        'description',
-        'publish',
-        'publish_advice',
-        'meta',
-    ];
-
-    protected $casts = [
-        'meta' => 'collect',
+        'fullname',
+        'verify_user',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
