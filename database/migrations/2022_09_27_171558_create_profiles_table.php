@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('verify_user');
             $table->foreignId('user_id');
 
-            $table->foreign('user_id')->on("users")->cascadeOnDelete();
+            $table->foreign('user_id')->on("users")->references('id')->cascadeOnDelete();
         });
     }
 

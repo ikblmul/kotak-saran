@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdviceController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\TopicController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,8 +27,16 @@ Route::get('/', function () {
     ]);
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::resource('/topic', TopicController::class);
+    Route::resource('/advice', AdviceController::class);
+    Route::resource('/group', GroupController::class);
+});
+
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

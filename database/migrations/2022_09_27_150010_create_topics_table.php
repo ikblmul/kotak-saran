@@ -19,12 +19,13 @@ return new class extends Migration
             $table->string('description');
             $table->boolean('publish', false);
             $table->boolean('publish_advice', false);
+            $table->timestamp('close_at')->nullable();
             $table->json('meta')->default("{}");
             $table->string('token', 9)->nullable();
 
             $table->foreignId('author_id');
 
-            $table->foreign('author_id')->on("users")->cascadeOnDelete();
+            $table->foreign('author_id')->references('id')->on("users")->cascadeOnDelete();
             $table->timestamps();
         });
     }

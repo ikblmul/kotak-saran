@@ -43,7 +43,7 @@ class TopicSettingBuilder
     }
 
     /**
-     * Set Only Authenticate Enable To Give Advice
+     * Set Only Authenticate Group Enable To Give Advice
      * 
      * @param boolean $value
      */
@@ -68,6 +68,7 @@ class TopicSettingBuilder
 
     function build()
     {
+        // dd($this->metaTopic);
         return $this->metaTopic;
     }
 
@@ -77,8 +78,8 @@ class TopicSettingBuilder
      * 
      * @param Topic $topic 
      */
-    static function of($topic)
+    static function of($meta)
     {
-        return (new static)->setSettings($topic->meta);
+        return (new static)->setSettings($meta);
     }
 }

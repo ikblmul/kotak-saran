@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('group_id'); // reffer to foreign id
+            $table->timestamp('accept_at')->nullable();
 
-            $table->foreign('group_id')->on('users')->cascadeOnDelete();
+            $table->foreign('group_id')->on('users')->references('id')->cascadeOnDelete();
         });
     }
 

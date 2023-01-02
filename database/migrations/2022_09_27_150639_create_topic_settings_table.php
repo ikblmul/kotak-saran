@@ -13,22 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('topic_settings', function (Blueprint $table) {
-            $table->id();
+        // Schema::create('topic_settings', function (Blueprint $table) {
+        //     $table->id();
 
-            $table->boolean('slow_mode');
-            $table->boolean('only_auth');
+        //     $table->boolean('slow_mode');
+        //     $table->boolean('only_auth');
 
-            $table->boolean('allow_same_user');
-            $table->integer('max_slow_mode', -1);
+        //     $table->boolean('allow_same_user');
+        //     $table->integer('max_slow_mode', -1);
 
-            $table->string('token');
-            $table->foreignId('topic_id');
+        //     $table->string('token');
+        //     $table->foreignId('topic_id');
 
-            $table->foreign('topic_id')->on("topics")->cascadeOnDelete();
+        //     $table->foreign('topic_id')->on("topics")->references('id')->cascadeOnDelete();
 
-            $table->timestamps();
-        });
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topic_settings');
+        // Schema::dropIfExists('topic_settings');
     }
 };

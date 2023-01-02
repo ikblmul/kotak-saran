@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->hasMany(Topic::class, 'author_id');
     }
 
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id');
+    }
+
     public function advices()
     {
         return $this->hasMany(Advice::class, 'advice_id');
@@ -58,7 +63,7 @@ class User extends Authenticatable
 
     public function groupUser()
     {
-        return $this->belongsToMany(User::class, 'group_user', 'group_id', 'user_id');
+        return $this->belongsToMany(User::class, 'group_user', 'group_id', 'user_id')->withPivot(['accept_at']);
     }
 
     static function makeAnonymousUsers()

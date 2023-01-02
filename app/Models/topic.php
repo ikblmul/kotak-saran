@@ -25,7 +25,7 @@ class Topic extends Model
     ];
 
     protected $casts = [
-        'meta' => 'collect',
+        'meta' => 'collection',
     ];
 
     public function user()

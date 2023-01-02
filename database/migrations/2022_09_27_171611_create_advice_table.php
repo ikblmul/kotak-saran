@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreignId('author_id');
             $table->foreignId('topic_id');
 
-            $table->foreign('author_id')->on('users')->cascadeOnDelete();
-            $table->foreign('topic_id')->on('topics')->cascadeOnDelete();
+            $table->foreign('author_id')->on('users')->references('id')->cascadeOnDelete();
+            $table->foreign('topic_id')->on('topics')->references('id')->cascadeOnDelete();
             $table->timestamps();
         });
     }
