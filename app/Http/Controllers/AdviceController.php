@@ -66,6 +66,7 @@ class AdviceController extends Controller
             'author_id' => auth()->user()->id ?? null,
         ]);
 
+        // Push
 
         return Inertia::location(redirect()->route('thanks.forfill'));
         return Inertia::location(route('advice.show', ['advice' => $request->get('topic_id')]));
