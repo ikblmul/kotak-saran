@@ -22,6 +22,7 @@ class Topic extends Model
         'publish',
         'publish_advice',
         'meta',
+        'close_at',
     ];
 
     protected $casts = [

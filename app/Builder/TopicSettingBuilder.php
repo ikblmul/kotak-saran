@@ -61,15 +61,50 @@ class TopicSettingBuilder
      */
     function setSameUser($value)
     {
-        return $this->metaTopic->get('allow_same_user', $value);
+        return $this->metaTopic->put('allow_same_user', $value);
 
         return $this;
     }
+
+    /**
+     * Set Only Same User Allow Give Multiple Advice
+     * 
+     * @param boolean $value
+     */
+    function setMakeAnonymous($value)
+    {
+        return $this->metaTopic->put('make_anonymous', $value);
+
+        return $this;
+    }
+
+    function hasMakeAnonymous()
+    {
+        return $this->metaTopic->get('make_anonymous', false);
+    }
+
+
+    function hasSameUser()
+    {
+        return $this->metaTopic->get('allow_same_user', false);
+    }
+
+
+    function hasOnlyAuth()
+    {
+        return $this->metaTopic->get('only_auth', false);
+    }
+
 
     function build()
     {
         // dd($this->metaTopic);
         return $this->metaTopic;
+    }
+
+    function get($key, $default = null)
+    {
+        return $this->metaTopic->get($key, $default);
     }
 
 

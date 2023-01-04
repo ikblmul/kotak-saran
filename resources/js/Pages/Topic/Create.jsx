@@ -30,6 +30,7 @@ const Create = (props) => {
         publish: true,
         publish_advice: false,
         auto_publish: false,
+        make_anonymous: false,
     });
 
     const saveAction = (e) => {
@@ -229,6 +230,48 @@ const Create = (props) => {
                                 }}
                             >
                                 <Box>
+                                    <FormLabel>Make Anonymous</FormLabel>
+                                    <FormHelperText sx={{ mt: 0 }}>
+                                        Membuat Nama User Anonymous
+                                    </FormHelperText>
+                                </Box>
+                                <Switch
+                                    checked={data.make_anonymous}
+                                    id="make_anonymous"
+                                    onChange={(event) =>
+                                        onHandleChange(
+                                            "make_anonymous",
+                                            event.target.checked
+                                        )
+                                    }
+                                    color={
+                                        data.make_anonymous
+                                            ? "primary"
+                                            : "neutral"
+                                    }
+                                    // color={data.make_anonymous}
+                                    variant="soft"
+                                    endDecorator={
+                                        data.make_anonymous ? "On" : "Off"
+                                    }
+                                    componentsProps={{
+                                        endDecorator: {
+                                            sx: {
+                                                minWidth: 24,
+                                            },
+                                        },
+                                    }}
+                                />
+                            </FormControl>
+
+                            <FormControl
+                                className="mt-7"
+                                orientation="horizontal"
+                                sx={{
+                                    justifyContent: "space-between",
+                                }}
+                            >
+                                <Box>
                                     <FormLabel>Only Auth</FormLabel>
                                     <FormHelperText sx={{ mt: 0 }}>
                                         hanya user yang mempunyai akun yang bisa
@@ -259,6 +302,8 @@ const Create = (props) => {
                                     }}
                                 />
                             </FormControl>
+
+                            {/* ALLOW SAME USER */}
                             <FormControl
                                 className="mt-7"
                                 orientation="horizontal"
@@ -297,6 +342,7 @@ const Create = (props) => {
                                     }}
                                 />
                             </FormControl>
+
                             <FormControl
                                 className="mt-7"
                                 orientation="horizontal"

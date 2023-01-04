@@ -29,14 +29,20 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::put('/advice/status/{id}', [TopicController::class, 'updateStatus'])->name('advice.status');
     Route::resource('/topic', TopicController::class);
-    Route::resource('/advice', AdviceController::class);
     Route::resource('/group', GroupController::class);
 });
+
+Route::resource('advice', AdviceController::class);
 
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/thanks-fill', function () {
+    return "Thanks For Fill";
+})->name('thanks.forfill');
 
 require __DIR__ . '/auth.php';

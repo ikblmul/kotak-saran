@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->text('content');
             $table->json('attachment')->default('[]');
-            $table->foreignId('author_id');
+            $table->foreignId('author_id')->nullable();
             $table->foreignId('topic_id');
 
-            $table->foreign('author_id')->on('users')->references('id')->cascadeOnDelete();
+            $table->foreign('author_id')->on('users')->references('id')->nullOnDelete();
             $table->foreign('topic_id')->on('topics')->references('id')->cascadeOnDelete();
             $table->timestamps();
         });

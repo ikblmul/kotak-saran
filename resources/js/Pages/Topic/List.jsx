@@ -20,6 +20,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 // import { Stack } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import moment from "moment";
 
 const routePath = route("topic.index");
 
@@ -103,6 +104,15 @@ const List = (props) => {
                             },
                         }}
                     >
+                        <JoyLink
+                            overlay
+                            component={Link}
+                            method="GET"
+                            underline="none"
+                            href={route("topic.show", data.id)}
+                            sx={{ color: "text.tertiary" }}
+                        ></JoyLink>
+
                         {/* <AspectRatio ratio="1" sx={{ width: 90 }}>
                             <img
                                 src="https://images.unsplash.com/photo-1507833423370-a126b89d394b?crop=entropy&auto=format&fit=crop&w=3387"
@@ -132,7 +142,10 @@ const List = (props) => {
                                     fontSize="sm"
                                     aria-describedby="card-description"
                                     mb={1}
-                                ></Typography>
+                                >
+                                    {/* {console.log(data.created_at)} */}
+                                    {moment(data.created_at).fromNow()}
+                                </Typography>
                             </Box>
                         </Box>
                     </Card>

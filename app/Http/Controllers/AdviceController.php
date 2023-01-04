@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Builder\TopicSettingBuilder;
+use App\Models\Advice;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,6 +19,7 @@ class AdviceController extends Controller
     public function index(Request $request)
     {
         $topic = Topic::query();
+
 
         $topic->orderBy('id', 'desc');
 
@@ -51,17 +54,21 @@ class AdviceController extends Controller
      */
     public function store(Request $request)
     {
+        $topic = Topic::find($request->get('topic_id'));
         $content = $request->get('content');
+        $meta = TopicSettingBuilder::of($topic->meta);
 
+        if ($meta->hasOnlyAuth() && !auth()->check()) return abort(404);
 
-        Topic::find($request->get('topic_id'))->advices()->create([
+        $topic->advices()->create([
             'content' => $content,
             'attachment' => '',
-            'author_id' => auth()->user()->id,
+            'author_id' => auth()->user()->id ?? null,
         ]);
 
 
-        return redirect()->route('advice.show', ['advice' => $request->get('topic_id')]);
+        return Inertia::location(redirect()->route('thanks.forfill'));
+        return Inertia::location(route('advice.show', ['advice' => $request->get('topic_id')]));
     }
 
     /**
@@ -72,10 +79,23 @@ class AdviceController extends Controller
      */
     public function show($id)
     {
-        $topic = Topic::find($id);
+
+        $topic = Topic::with('user')->find($id);
+
+        if ($topic->close_at) return abort(404);
+
+        $meta = TopicSettingBuilder::of($topic->meta);
+
+        $isLogin = auth()->check() ? Advice::where('author_id', auth()->user()->id)->where('topic_id', $id)->exists() : false;
+
+        if ($meta->hasSameUser() && $isLogin) return response("terima kasih sudah mengisi");
+
+        // return abort(404);
+        // dd($meta->hasOnlyAuth() && auth()->check(), auth()->check(), $meta->hasOnlyAuth());
+        if ($meta->hasOnlyAuth() && !auth()->check()) return abort(403);
         // dd($topic->advices->toArray());
 
-        return Inertia::render('Advice/Show', ['topic' => $topic, 'advices' => $topic->advices]);
+        return Inertia::render('Advice/Show', ['topic' => $topic, 'advices' => $topic->advices, 'topic_id' => $id]);
     }
 
     /**

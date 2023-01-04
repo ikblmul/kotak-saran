@@ -51,16 +51,18 @@ const Show = (props) => {
         <>
             <div className="max-h-screen min-h-screen h-full bg-gray-100 flex relative overflow-auto px-4 px-md-1">
                 <div className=" container mx-auto">
-                    back
                     <CssVarsProvider>
                         <Card variant="outlined" color="white" className="mt-6">
-                            <Typography
+                            <Typography level="body3" fontWeight={"md"}>
+                                Created By {props.topic.user.email}
+                            </Typography>
+                            {/* <Typography
                                 level="body3"
                                 fontWeight={"bold"}
                                 textColor={"gray"}
                             >
                                 Topik
-                            </Typography>
+                            </Typography> */}
 
                             <Typography level="h6" fontWeight={"md"}>
                                 {props.topic.title}
@@ -99,7 +101,7 @@ const Show = (props) => {
                                                 fontWeight={"700"}
                                                 color={"neutral"}
                                             >
-                                                {adv.user.profile.fullname}
+                                                {adv.name_author}
                                             </Typography>
                                         </div>
 

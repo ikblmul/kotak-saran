@@ -24,14 +24,14 @@ export default function Authenticated({ auth, header, children }) {
                                     </Link>
                                 </div>
 
-                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <NavLink
                                         href={route("group.index")}
                                         active={route().current("group.index")}
                                     >
                                         Member
                                     </NavLink>
-                                </div>
+                                </div> */}
 
                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <NavLink
@@ -41,14 +41,14 @@ export default function Authenticated({ auth, header, children }) {
                                         Topik
                                     </NavLink>
                                 </div>
-                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <NavLink
                                         href={route("advice.index")}
                                         active={route().current("advice.index")}
                                     >
                                         Kotak Saran
-                                    </NavLink>
-                                </div>
+                                    </NavLink> */}
+                                {/* </div> */}
                             </div>
 
                             <div className="hidden sm:flex sm:items-center sm:ml-6">
@@ -147,20 +147,20 @@ export default function Authenticated({ auth, header, children }) {
                             >
                                 Topik
                             </ResponsiveNavLink>
-
+                            {/* 
                             <ResponsiveNavLink
                                 href={route("advice.index")}
                                 active={route().current("advice.index")}
                             >
                                 Kotak Saran
-                            </ResponsiveNavLink>
+                            </ResponsiveNavLink> */}
 
-                            <ResponsiveNavLink
+                            {/* <ResponsiveNavLink
                                 href={route("group.index")}
                                 active={route().current("group.index")}
                             >
                                 Member
-                            </ResponsiveNavLink>
+                            </ResponsiveNavLink> */}
                         </div>
 
                         <div className="pt-4 pb-1 border-t border-gray-200">
@@ -195,7 +195,7 @@ export default function Authenticated({ auth, header, children }) {
                 )}
                 <FlashMessage />
 
-                <main>{children}</main>
+                <main className="px-3 px-md-0">{children}</main>
             </div>
         </CssVarsProvider>
     );

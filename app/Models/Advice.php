@@ -38,7 +38,7 @@ class Advice extends Model
 
     public function nameAuthor(): Attribute
     {
-        return new Attribute(fn () => $this->user->profile?->email);
+        return new Attribute(fn () => $this->user?->profile?->fullname ?? "Anonymous");
     }
 
     public function topic()

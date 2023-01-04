@@ -7,6 +7,7 @@ use App\Events\TopicEvent;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class TopicController extends Controller
@@ -69,11 +70,12 @@ class TopicController extends Controller
             'same_user' => 'required|boolean',
             'max_slow_mode' => 'required|integer',
             'only_auth' => 'required|boolean',
+            'make_anonymous' => 'required|boolean',
             // 'slow_mode' => 'required|boolean',
             // auto_publish
         ]);
 
-        $topicMeta = TopicSettingBuilder::of(collect($request->only('same_user', 'only_auth')));
+        $topicMeta = TopicSettingBuilder::of(collect($request->only('same_user', 'only_auth', 'make_anonymous')));
         $maxSlowMode = $request->get('max_slow_mode', 0);
 
         if ($maxSlowMode > 0) $topicMeta->setSlowMode($maxSlowMode);
@@ -101,6 +103,20 @@ class TopicController extends Controller
      */
     public function show($id)
     {
+
+        $topic = Topic::find($id);
+
+        $meta = TopicSettingBuilder::of($topic->meta);
+
+        $table_to_get = $meta->hasMakeAnonymous() ?  ['content'] : ['*'];
+
+        $advices = $topic->close_at ? $topic->advices()->orderBy('created_at', 'desc')->get($table_to_get) : $topic->advices->count();
+        // dd($topic->advices->toArray());
+
+
+        // dd($advices->toArray(), $table_to_get);
+
+        return Inertia::render('Topic/Show', ['topic' => $topic, 'advices' => $advices]);
         // 
     }
 
@@ -136,5 +152,15 @@ class TopicController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateStatus($id, Request $request)
+    {
+
+        $topic = Topic::find($id)->update(['close_at' => now()]);
+
+        // dd(Topic::find($id)->close_at, now()->toString());
+
+        return redirect()->route('topic.show', $id);
     }
 }
