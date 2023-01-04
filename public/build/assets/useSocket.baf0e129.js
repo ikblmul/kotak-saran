@@ -1,0 +1,1 @@
+import{u,r as i}from"./app.0b963a75.js";const a=(o,t,s,r=!0)=>(r?window.Echo.private(t).listen(s,e=>{o(e)}):window.Echo.channel(t).listen(s,e=>{o(e)}),function(){window.Echo.leaveChannel(`private-${t}`)}),p=({channel:o,event:t,id:s},r,e=!0)=>{console.log("changes");const n=s||u().props.auth.user.id;i.exports.useEffect(()=>a(r,`${o}.${n}`,t,e))};export{p as u};

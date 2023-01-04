@@ -1,0 +1,1 @@
+import{r as u,b as c}from"./app.0b963a75.js";let s=0;function l(t){const[e,a]=u.exports.useState(t),o=t||e;return u.exports.useEffect(()=>{e==null&&(s+=1,a(`mui-${s}`))},[e]),o}const n=c["useId"];function r(t){if(n!==void 0){const e=n();return t!=null?t:e}return l(t)}export{r as u};
